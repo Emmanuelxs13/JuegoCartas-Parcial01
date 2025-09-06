@@ -2,20 +2,24 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
+// Clase que representa a un jugador en el juego.
+// Cada jugador tiene un conjunto de cartas y puede repartirlas y mostrarlas en pantalla.
 public class Jugador {
 
-    private final int TOTAL_CARTAS = 10;
-    private final int SEPARACION = 40;
-    private final int MARGEN = 10;
-    private Carta[] cartas = new Carta[TOTAL_CARTAS];
-    private Random r = new Random();
+    private final int TOTAL_CARTAS = 10; // Número total de cartas por jugador
+    private final int SEPARACION = 40;   // Espacio entre cartas al mostrar
+    private final int MARGEN = 10;       // Margen inicial para mostrar cartas
+    private Carta[] cartas = new Carta[TOTAL_CARTAS]; // Arreglo de cartas del jugador
+    private Random r = new Random();     // Generador de números aleatorios
 
+    // Reparte cartas aleatorias al jugador
     public void repartir() {
         for (int i = 0; i < TOTAL_CARTAS; i++) {
             cartas[i] = new Carta(r);
         }
     }
 
+    // Muestra las cartas del jugador en el panel indicado
     public void mostrar(JPanel pnl) {
         pnl.removeAll();
         int posicion = MARGEN + TOTAL_CARTAS * SEPARACION;
@@ -26,6 +30,7 @@ public class Jugador {
         pnl.repaint();
     }
 
+    // Devuelve una cadena con los grupos encontrados entre las cartas del jugador
     public String getGrupos() {
         String resultado = "No se encontaron grupos";
         // iniciar los contadores
