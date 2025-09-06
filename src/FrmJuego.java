@@ -1,8 +1,6 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -10,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 // Clase que representa la ventana principal del juego de cartas.
-// Permite repartir cartas y verificar los grupos formados por cada jugador.
+// Aquí se gestionan los jugadores, la interfaz gráfica y las acciones principales del juego.
 public class FrmJuego extends JFrame {
 
     // Paneles para mostrar las cartas de cada jugador
@@ -20,19 +18,22 @@ public class FrmJuego extends JFrame {
     // Componente para alternar entre los jugadores
     JTabbedPane tpJugadores;
 
-    // Constructor: configura la interfaz gráfica y los componentes
+    /**
+     * Constructor: configura la interfaz gráfica y los componentes del juego.
+     * Aquí se crean los botones, paneles y pestañas para los jugadores.
+     */
     public FrmJuego() {
         setTitle("Juguemos al apuntado"); // Título de la ventana
         setSize(600, 300);                // Tamaño de la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la app al salir
         setLayout(null);                  // Layout absoluto
 
-        // Botón para repartir cartas
+        // Botón para repartir cartas a los jugadores
         JButton btnRepartir = new JButton("Repartir");
         btnRepartir.setBounds(10, 10, 100, 25);
         getContentPane().add(btnRepartir);
 
-        // Botón para verificar los grupos de cartas
+        // Botón para verificar los grupos y escaleras de cartas
         JButton btnVerificar = new JButton("Verificar");
         btnVerificar.setBounds(120, 10, 100, 25);
         getContentPane().add(btnVerificar);
@@ -59,15 +60,15 @@ public class FrmJuego extends JFrame {
         btnRepartir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                repartir();
+                repartir(); // Llama al método para repartir cartas
             }
         });
 
-        // Acción al presionar el botón "Verificar": muestra los grupos encontrados
+        // Acción al presionar el botón "Verificar": muestra los grupos, escaleras y puntaje
         btnVerificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                verificar();
+                verificar(); // Llama al método para verificar resultados
             }
         });
 
@@ -76,28 +77,40 @@ public class FrmJuego extends JFrame {
         jugador2 = new Jugador();
     }
 
-    // Reparte cartas a ambos jugadores y las muestra en pantalla
+    /**
+     * Reparte cartas a ambos jugadores y las muestra en pantalla.
+     * Llama a los métodos de cada jugador para repartir y mostrar sus cartas.
+     */
     private void repartir() {
         jugador1.repartir();
         jugador2.repartir();
-
         jugador1.mostrar(pnlJugador1);
         jugador2.mostrar(pnlJugador2);
     }
 
-    // Verifica los grupos formados por el jugador seleccionado y muestra el resultado
+    /**
+     * Verifica los grupos, escaleras y puntaje del jugador seleccionado.
+     * Muestra los resultados en un cuadro de diálogo.
+     */
     private void verificar() {
         int pestaña = tpJugadores.getSelectedIndex();
-        switch (pestaña) {
-            case 0:
-                JOptionPane.showMessageDialog(null,
-                        jugador1.getGrupos());
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null,
-                        jugador2.getGrupos());
-                break;
+        Jugador jugadorActual = pestaña == 0 ? jugador1 : jugador2;
+        StringBuilder resultado = new StringBuilder();
+        // Mostrar grupos
+        resultado.append(jugadorActual.getGrupos()).append("\n\n");
+        // Mostrar escaleras
+        java.util.List<String> escaleras = jugadorActual.getEscalerasPorPinta();
+        if (!escaleras.isEmpty()) {
+            resultado.append("Escaleras encontradas:\n");
+            for (String escalera : escaleras) {
+                resultado.append(escalera).append("\n");
+            }
+        } else {
+            resultado.append("No se encontraron escaleras de la misma pinta.\n");
         }
+        // Mostrar puntaje
+        resultado.append("\nPuntaje de cartas sin figuras: ")
+                 .append(jugadorActual.getPuntajeSinFiguras());
+        JOptionPane.showMessageDialog(null, resultado.toString());
     }
-
 }

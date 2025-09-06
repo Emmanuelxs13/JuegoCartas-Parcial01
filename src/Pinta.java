@@ -1,8 +1,8 @@
 // Enumeración que representa las pintas (figuras) posibles de una carta.
-// Incluye trébol, pica, corazón y diamante.
+// Las pintas permiten agrupar y diferenciar las cartas en el juego.
 public enum Pinta {
-    TREBOL,
-    PICA,
-    CORAZON,
-    DIAMANTE
+    TREBOL,   // Clubs
+    PICA,     // Spades
+    CORAZON,  // Hearts
+    DIAMANTE  // Diamonds
 }
