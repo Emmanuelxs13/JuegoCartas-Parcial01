@@ -25,7 +25,7 @@ public class Carta {
 
     /**
      * Muestra la carta en el panel indicado, en la posición (x, y).
-     * Además, agrega un evento para mostrar el nombre y la pinta al hacer clic sobre la carta.
+     * Además, agrega un evento para mostrar el nombre, la pinta y la imagen al hacer clic sobre la carta.
      * @param pnl Panel donde se mostrará la carta
      * @param x Posición horizontal
      * @param y Posición vertical
@@ -38,12 +38,18 @@ public class Carta {
         lblCarta.setBounds(x, y, imgCarta.getIconWidth(), imgCarta.getIconHeight()); // Posiciona la carta
         pnl.add(lblCarta);
 
-        // Evento: al hacer clic en la carta, muestra un mensaje con el nombre y la pinta
+        // Evento: al hacer clic en la carta, muestra un mensaje con el nombre, la pinta y la imagen
         lblCarta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                // Crea un JLabel para mostrar la imagen en el JOptionPane
+                JLabel imgLabel = new JLabel(imgCarta);
+                imgLabel.setPreferredSize(new java.awt.Dimension(imgCarta.getIconWidth(), imgCarta.getIconHeight()));
+                // Muestra el cuadro de diálogo con nombre, pinta e imagen
                 JOptionPane.showMessageDialog(null,
-                        getNombre() + " " + getPinta());
+                        imgLabel,
+                        getNombre() + " " + getPinta(),
+                        JOptionPane.PLAIN_MESSAGE);
             }
         });
     }
@@ -72,5 +78,14 @@ public class Carta {
         int residuo = indice % 13;
         int posicion = residuo == 0 ? 12 : residuo - 1;
         return NombreCarta.values()[posicion];
+    }
+
+    /**
+     * Devuelve el ImageIcon de la carta, útil para mostrar la imagen en interfaces.
+     * @return ImageIcon de la carta
+     */
+    public ImageIcon getImageIcon() {
+        String archivoCarta = "imagenes/CARTA" + indice + ".jpg";
+        return new ImageIcon(getClass().getResource(archivoCarta));
     }
 }
