@@ -48,14 +48,17 @@ La documentación y explicación del código fue enriquecida con el apoyo de la 
 A continuación se describen las clases principales y sus métodos más importantes:
 
 ### App.java
+
 - **main(String[] args):** Punto de entrada. Inicia la interfaz gráfica del juego.
 
 ### FrmJuego.java
+
 - **FrmJuego():** Constructor. Configura la ventana, colores, botones y paneles.
 - **repartir():** Reparte cartas a ambos jugadores y las muestra en pantalla.
 - **verificar():** Muestra los resultados del jugador activo: grupos, escaleras y puntaje, incluyendo imágenes.
 
 ### Jugador.java
+
 - **repartir():** Asigna 10 cartas aleatorias al jugador.
 - **mostrar(JPanel pnl):** Dibuja las cartas en el panel, ajustando posición y separación.
 - **getGrupos():** Detecta grupos de cartas iguales (pares, ternas, etc.) y los describe.
@@ -65,6 +68,7 @@ A continuación se describen las clases principales y sus métodos más importan
 - **EscaleraInfo:** Clase interna que encapsula la descripción y las imágenes de una escalera encontrada.
 
 ### Carta.java
+
 - **Carta(Random r):** Constructor. Crea una carta con valor aleatorio.
 - **mostrar(JPanel pnl, int x, int y):** Dibuja la carta en el panel y muestra su imagen y datos al hacer clic.
 - **getPinta():** Devuelve la pinta (figura) de la carta.
@@ -72,12 +76,15 @@ A continuación se describen las clases principales y sus métodos más importan
 - **getImageIcon():** Devuelve el icono de la imagen de la carta.
 
 ### Grupo.java
+
 - **Enum Grupo:** Representa los posibles grupos de cartas (par, terna, cuarta, etc.).
 
 ### NombreCarta.java
+
 - **Enum NombreCarta:** Enumera los nombres posibles de las cartas (AS, DOS, ..., KING).
 
 ### Pinta.java
+
 - **Enum Pinta:** Enumera las pintas posibles (TREBOL, PICA, CORAZON, DIAMANTE).
 
 ---
